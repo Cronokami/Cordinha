@@ -28,6 +28,7 @@ public class ShootManager : MonoBehaviour
 			{
 				shot = true;
 				transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
+				
 				firstJoint = Instantiate(projectile, transform.localPosition, transform.localRotation, ropePoolGameObject.transform);
 				RopePoolTongue.RopeJoints.Add(firstJoint);
 				//hinge.connectedBody = corda.GetComponent<Rigidbody2D>();
