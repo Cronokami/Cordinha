@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RopePoolTongue : MonoBehaviour
 {
-	public static List<GameObject> RopeJoints = new List<GameObject>();
+	public static int RopeJoints;
 	public static List<GameObject> RopeJointsPool = new List<GameObject>();
 	private LineRenderer line;
 
@@ -15,34 +15,41 @@ public class RopePoolTongue : MonoBehaviour
 		{
 			RopeJointsPool.Add(transform.GetChild(i).gameObject);
 		}
-		
+		RopeJoints = 0;
 	}
 
 	private void Update()
     {
-		if (RopeJoints.Count > 0)
+		if (RopeJoints > 0)
 		{
-			line.positionCount = RopeJoints.Count;
-			for (int i = 0; i < RopeJoints.Count; i++)
+			line.positionCount = RopeJoints;
+			for (int i = 0; i < RopeJoints; i++)
 			{
-				line.SetPosition(i, RopeJoints[i].transform.position);
+				line.SetPosition(i, RopeJointsPool[i].transform.position);
 			}
 		}
 		else
 		{
 			line.positionCount = 0;
 		}
+		Debug.Log(RopeJoints);
     }
 
 	public static void ClearJoints()
 	{
 		
-		if (RopeJoints.Count <= 0) return;
-		for (int i = 0; i < RopeJoints.Count; i++)
+		if (RopeJoints <= 0) return;
+		for (int i = 0; i < RopeJoints; i++)
 		{
-			RopeJoints[i].gameObject.SendMessage("DestroyNow");
+			RopeJointsPool[i].gameObject.SendMessage("DestroyNow");
 
 		}
-		RopeJoints.Clear();
+		RopeJoints = 0;
+	}
+
+	private void OnDestroy()
+	{
+		RopeJointsPool.Clear();
+		RopeJoints = 0;
 	}
 }

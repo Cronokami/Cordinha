@@ -28,13 +28,16 @@ public class ShootManager : MonoBehaviour
 			{
 				shot = true;
 				transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
-				
-				firstJoint = Instantiate(projectile, transform.localPosition, transform.localRotation, ropePoolGameObject.transform);
-				RopePoolTongue.RopeJoints.Add(firstJoint);
+				firstJoint = RopePoolTongue.RopeJointsPool[0];
+				firstJoint.transform.position = transform.localPosition;
+				firstJoint.transform.rotation = transform.localRotation;
+				firstJoint.SetActive(true);
+				//RopePoolTongue.RopeJoints.Add(firstJoint);
 				//hinge.connectedBody = corda.GetComponent<Rigidbody2D>();
+				/*
 				HingeJoint2D newJoint;
 				newJoint = firstJoint.GetComponent<HingeJoint2D>();
-				newJoint.connectedBody = rb2d;
+				newJoint.connectedBody = rb2d;*/
 				activate.value = true;
 			}
 			else
@@ -65,6 +68,6 @@ public class ShootManager : MonoBehaviour
 	private void OnDisable()
 	{
 		RopePoolTongue.ClearJoints();
-		
+		activate.value = false;
 	}
 }

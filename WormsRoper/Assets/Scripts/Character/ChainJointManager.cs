@@ -15,11 +15,11 @@ public class ChainJointManager : MonoBehaviour
 	public GameObject jointPrefab;
 	private bool tip;
 
-	private void Start()
+	private void OnEnable()
 	{
 		//rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
 		StartCoroutine(ShouldCreateJoint());
-		RopePoolTongue.RopeJoints.Add(gameObject);
+		RopePoolTongue.RopeJoints++;
 		tip = true;
 	}
 
@@ -35,18 +35,24 @@ public class ChainJointManager : MonoBehaviour
 		if (!elongate.value) StartCoroutine(ShouldCreateJoint());
 		else
 		{
-			GameObject instance = Instantiate(jointPrefab, transform.position + transform.forward * spriteRenderer.bounds.size.x * stats.distanceMultiplier, transform.rotation, transform.parent);
+			GameObject nextJoint = RopePoolTongue.RopeJointsPool[RopePoolTongue.RopeJoints];
+			nextJoint.transform.position = transform.position + transform.forward * spriteRenderer.bounds.size.x * stats.distanceMultiplier;
+			nextJoint.transform.rotation = transform.rotation;
+			nextJoint.SetActive(true);
 			yield return new WaitForSeconds(stats.shotSpeed / 2);
+			/*
 			HingeJoint2D newJoint;
 			newJoint = instance.GetComponent<HingeJoint2D>();
 			newJoint.connectedBody = rb2d;
+			*/
 			tip = false;
 		}
 	}
 
 	private void DestroyNow()
 	{
-		Destroy(gameObject);
+		gameObject.SetActive(false);
+		transform.localPosition = Vector3.zero;
 	}
 
 
