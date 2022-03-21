@@ -18,7 +18,8 @@ public class ShootManager : MonoBehaviour
     {
 		hinge = GetComponent<HingeJoint2D>();
 		rb2d = GetComponent<Rigidbody2D>();
-    }
+		firstJoint = RopePoolTongue.RopeJointsPool[0];
+	}
 	
     void Update()
     {
@@ -26,23 +27,17 @@ public class ShootManager : MonoBehaviour
 		{
 			if (!shot)
 			{
+				RopePoolTongue.ClearJoints();
 				shot = true;
 				transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
-				firstJoint = RopePoolTongue.RopeJointsPool[0];
 				firstJoint.transform.position = transform.localPosition;
 				firstJoint.transform.rotation = transform.localRotation;
 				firstJoint.SetActive(true);
-				//RopePoolTongue.RopeJoints.Add(firstJoint);
-				//hinge.connectedBody = corda.GetComponent<Rigidbody2D>();
-				/*
-				HingeJoint2D newJoint;
-				newJoint = firstJoint.GetComponent<HingeJoint2D>();
-				newJoint.connectedBody = rb2d;*/
 				activate.value = true;
 			}
 			else
 			{
-				transform.rotation = firstJoint.transform.rotation;
+				
 			}
 			
 		}
@@ -52,7 +47,7 @@ public class ShootManager : MonoBehaviour
 			if (shot)
 			{
 				
-				RopePoolTongue.ClearJoints();
+				//RopePoolTongue.ClearJoints();
 
 			}
 
@@ -61,7 +56,11 @@ public class ShootManager : MonoBehaviour
 			
 		}
 
-		Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 3, Color.yellow);
+		if (firstJoint.activeSelf)
+		{
+			transform.rotation = firstJoint.transform.rotation;
+		}
+		
 	}
 	
 

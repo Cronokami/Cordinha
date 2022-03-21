@@ -8,10 +8,10 @@ public class RopePoolTongue : MonoBehaviour
 	public static List<GameObject> RopeJointsPool = new List<GameObject>();
 	private LineRenderer line;
 
-	private void Start()
+	private void Awake()
 	{
 		line = GetComponent<LineRenderer>();
-		for (int i = 0; i < transform.childCount-1 ; i++)
+		for (int i = 0; i < transform.childCount ; i++)
 		{
 			RopeJointsPool.Add(transform.GetChild(i).gameObject);
 		}
