@@ -15,7 +15,7 @@ public class JumpManager : MonoBehaviour
 	private LineRenderer lineRenderer;
 
 
-	private void Start()
+	private void Awake()
 	{
 		rb2D = GetComponent<Rigidbody2D>();
 		lineRenderer = GetComponent<LineRenderer>();

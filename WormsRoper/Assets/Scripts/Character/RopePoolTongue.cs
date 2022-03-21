@@ -7,14 +7,39 @@ public class RopePoolTongue : MonoBehaviour
 	public static int RopeJoints;
 	public static List<GameObject> RopeJointsPool = new List<GameObject>();
 	private LineRenderer line;
+	public GameObject chainJointPrefab;
+	public int poolSize;
+	public Rigidbody2D characterRB;
 
 	private void Awake()
 	{
 		line = GetComponent<LineRenderer>();
+		GameObject theJoint;
+		HingeJoint2D hinge;
+		Rigidbody2D jointRB = null;
+		for (int i = 0; i < poolSize; i++)
+		{
+			theJoint = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
+			hinge = theJoint.GetComponent<HingeJoint2D>();
+			if (i == 0)
+			{
+				hinge.connectedBody = characterRB;
+			}
+			else
+			{
+				hinge.connectedBody = jointRB;
+			}
+			jointRB = theJoint.GetComponent<Rigidbody2D>();
+			theJoint.SetActive(false);
+			RopeJointsPool.Add(theJoint);
+		}
+
+		/*
 		for (int i = 0; i < transform.childCount ; i++)
 		{
 			RopeJointsPool.Add(transform.GetChild(i).gameObject);
 		}
+		*/
 		RopeJoints = 0;
 	}
 

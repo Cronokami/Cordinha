@@ -6,12 +6,12 @@ public class ShootManager : MonoBehaviour
 {
 	public GameObject projectile;
 	public ObjectBoolean activate;
-	private bool shot;
+	public bool shot;
 	private HingeJoint2D hinge;
 	public GameObject ropePoolGameObject;
 	private Rigidbody2D rb2d;
 	GameObject firstJoint;
-
+	
 	
 	
     void Start()
@@ -19,6 +19,7 @@ public class ShootManager : MonoBehaviour
 		hinge = GetComponent<HingeJoint2D>();
 		rb2d = GetComponent<Rigidbody2D>();
 		firstJoint = RopePoolTongue.RopeJointsPool[0];
+		shot = false;
 	}
 	
     void Update()
@@ -27,7 +28,7 @@ public class ShootManager : MonoBehaviour
 		{
 			if (!shot)
 			{
-				RopePoolTongue.ClearJoints();
+				
 				shot = true;
 				transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
 				firstJoint.transform.position = transform.localPosition;
@@ -37,7 +38,9 @@ public class ShootManager : MonoBehaviour
 			}
 			else
 			{
-				
+				shot = false;
+				activate.value = false;
+				RopePoolTongue.ClearJoints();
 			}
 			
 		}
@@ -51,8 +54,8 @@ public class ShootManager : MonoBehaviour
 
 			}
 
-			shot = false;
-			activate.value = false;
+			
+			
 			
 		}
 
