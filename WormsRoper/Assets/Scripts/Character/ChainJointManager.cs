@@ -15,12 +15,16 @@ public class ChainJointManager : MonoBehaviour
 	public GameObject jointPrefab;
 	private bool tip;
 
+	private Transform previousJoint;//useless for now but have plans on using it
+	private float startUnitDistance;
+
 	private void OnEnable()
 	{
 		rb2d.constraints = RigidbodyConstraints2D.None;
 		StartCoroutine(ShouldCreateJoint());
 		RopePoolTongue.RopeJoints++;
 		tip = true;
+		startUnitDistance = Vector2.Distance(transform.position, gameObject.GetComponent<HingeJoint2D>().connectedBody.transform.position);  //this is the stuff I'm working on
 	}
 
 	private void Update()
