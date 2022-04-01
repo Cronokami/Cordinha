@@ -11,7 +11,8 @@ public class ShootManager : MonoBehaviour
 	public GameObject ropePoolGameObject;
 	private Rigidbody2D rb2d;
 	GameObject firstJoint;
-	
+
+	private bool constantTouch = false;
 	
 	
     void Start()
@@ -26,37 +27,32 @@ public class ShootManager : MonoBehaviour
     {
 		if (TouchPointManager.isTouching)
 		{
-			if (!shot)
+			if (!constantTouch)
 			{
-				
-				shot = true;
-				transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
-				firstJoint.transform.position = transform.localPosition;
-				firstJoint.transform.rotation = transform.localRotation;
-				firstJoint.SetActive(true);
-				activate.value = true;
-			}
-			else
-			{
-				shot = false;
-				activate.value = false;
-				RopePoolTongue.ClearJoints();
+				if (!shot)
+				{
+
+					shot = true;
+					transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
+					firstJoint.transform.position = transform.localPosition;
+					firstJoint.transform.rotation = transform.localRotation;
+					firstJoint.SetActive(true);
+					activate.value = true;
+				}
+				else
+				{
+					shot = false;
+					activate.value = false;
+					RopePoolTongue.ClearJoints();
+				}
+				constantTouch = true;
 			}
 			
 		}
 
 		if (!TouchPointManager.isTouching)
 		{
-			if (shot)
-			{
-				
-				//RopePoolTongue.ClearJoints();
-
-			}
-
-			
-			
-			
+			constantTouch = false;			
 		}
 
 		if (firstJoint.activeSelf)
