@@ -10,6 +10,7 @@ public class RopePoolTongue : MonoBehaviour
 	public GameObject chainJointPrefab;
 	public int poolSize;
 	public Rigidbody2D characterRB;
+	public static Transform hand;
 
 	private void Awake()
 	{
@@ -17,6 +18,7 @@ public class RopePoolTongue : MonoBehaviour
 		GameObject theJoint;
 		HingeJoint2D hinge;
 		Rigidbody2D jointRB = null;
+		hand = transform.GetChild(0);
 		for (int i = 0; i < poolSize; i++)
 		{
 			theJoint = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);

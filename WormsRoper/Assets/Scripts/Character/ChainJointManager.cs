@@ -24,12 +24,15 @@ public class ChainJointManager : MonoBehaviour
 		StartCoroutine(ShouldCreateJoint());
 		RopePoolTongue.RopeJoints++;
 		tip = true;
-		startUnitDistance = Vector2.Distance(transform.position, gameObject.GetComponent<HingeJoint2D>().connectedBody.transform.position);  //this is the stuff I'm working on
+		//startUnitDistance = Vector2.Distance(transform.position, gameObject.GetComponent<HingeJoint2D>().connectedBody.transform.position);  //this is the stuff I'm working on
 	}
 
 	private void Update()
 	{
-
+		if (tip)
+		{
+			RopePoolTongue.hand.SendMessage("IAmTip", transform);
+		}
 	}
 
 	private IEnumerator ShouldCreateJoint()
@@ -51,6 +54,12 @@ public class ChainJointManager : MonoBehaviour
 	{
 		gameObject.SetActive(false);
 		transform.localPosition = Vector3.zero;
+		if (tip)
+		{
+			RopePoolTongue.hand.SendMessage("IAmNotTip");
+		}
+
+
 	}
 
 
