@@ -6,6 +6,8 @@ public class RopePoolTongue : MonoBehaviour
 {
 	public static int RopeJoints;
 	public static List<GameObject> RopeJointsPool = new List<GameObject>();
+	private List<ChainJointManager> chainJointManagers = new List<ChainJointManager>();
+	public static float totalDistance;
 	private LineRenderer line;
 	public GameObject chainJointPrefab;
 	public int poolSize;
@@ -31,17 +33,12 @@ public class RopePoolTongue : MonoBehaviour
 			{
 				hinge.connectedBody = jointRB;
 			}
+			chainJointManagers.Add(theJoint.GetComponent<ChainJointManager>());
 			jointRB = theJoint.GetComponent<Rigidbody2D>();
 			theJoint.SetActive(false);
 			RopeJointsPool.Add(theJoint);
 		}
-
-		/*
-		for (int i = 0; i < transform.childCount ; i++)
-		{
-			RopeJointsPool.Add(transform.GetChild(i).gameObject);
-		}
-		*/
+		
 		RopeJoints = 0;
 	}
 
@@ -59,8 +56,18 @@ public class RopePoolTongue : MonoBehaviour
 		{
 			line.positionCount = 0;
 		}
-		Debug.Log(RopeJoints);
     }
+
+	private void FixedUpdate()
+	{
+		Vector3 previousPosition = RopeJointsPool[0].transform.position;
+		foreach (GameObject joint in RopeJointsPool)
+		{
+			previousPosition = joint.transform.position;
+			totalDistance += Vector3.Distance(joint.transform.position, previousPosition);
+		}
+		
+	}
 
 	public static void ClearJoints()
 	{

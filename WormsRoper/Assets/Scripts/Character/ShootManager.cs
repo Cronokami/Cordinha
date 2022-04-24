@@ -25,7 +25,7 @@ public class ShootManager : MonoBehaviour
 	
     void Update()
     {
-		if (TouchPointManager.isTouching)
+		if (TouchPointManager.isTouching && !CharacterTouchDrag.isDragging)
 		{
 			if (!constantTouch)
 			{

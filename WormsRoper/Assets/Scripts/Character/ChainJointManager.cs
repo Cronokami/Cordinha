@@ -10,28 +10,48 @@ public class ChainJointManager : MonoBehaviour
 
 	public ChainJointStats stats;
 	public ObjectBoolean elongate;
-	private bool turnOff;
 
 	public GameObject jointPrefab;
 	private bool tip;
 
-	private Transform previousJoint;//useless for now but have plans on using it
-	private float startUnitDistance;
+	private Rigidbody2D previousJoint;//useless for now but have plans on using it
+	public float startUnitDistance;
 
+	
 	private void OnEnable()
 	{
 		rb2d.constraints = RigidbodyConstraints2D.None;
 		StartCoroutine(ShouldCreateJoint());
 		RopePoolTongue.RopeJoints++;
 		tip = true;
-		//startUnitDistance = Vector2.Distance(transform.position, gameObject.GetComponent<HingeJoint2D>().connectedBody.transform.position);  //this is the stuff I'm working on
+		if (previousJoint != null)
+		{
+			startUnitDistance = Vector2.Distance(transform.position, previousJoint.transform.position);
+		}
 	}
+
+	private void Start()
+	{
+		//can't make this on Awake due to needing other codes to do stuff on start for this to work
+		previousJoint = gameObject.GetComponent<HingeJoint2D>().connectedBody;
+		startUnitDistance = Vector2.Distance(transform.position, previousJoint.transform.position);
+	}
+
 
 	private void Update()
 	{
 		if (tip)
 		{
 			RopePoolTongue.hand.SendMessage("IAmTip", transform);
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		if (Vector2.Distance(transform.position, previousJoint.transform.position) > startUnitDistance)
+		{
+			rb2d.AddForce(previousJoint.transform.position - transform.position);
+
 		}
 	}
 
@@ -53,6 +73,7 @@ public class ChainJointManager : MonoBehaviour
 	private void DestroyNow()
 	{
 		gameObject.SetActive(false);
+		startUnitDistance = 0;
 		transform.localPosition = Vector3.zero;
 		if (tip)
 		{
@@ -69,8 +90,7 @@ public class ChainJointManager : MonoBehaviour
 		{
 			elongate.value = false;
 			rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
-			Debug.Log("bateu");
-
+			
 		}
 	}
 
