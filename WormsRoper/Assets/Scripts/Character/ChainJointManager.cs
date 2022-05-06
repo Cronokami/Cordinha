@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChainJointManager : MonoBehaviour
 {
 	public Rigidbody2D rb2d;
-	public HingeJoint2D hj2d;
+	public SpringJoint2D sj2d;
 	public SpriteRenderer spriteRenderer;
 
 	public ChainJointStats stats;
@@ -24,17 +24,20 @@ public class ChainJointManager : MonoBehaviour
 		StartCoroutine(ShouldCreateJoint());
 		RopePoolTongue.RopeJoints++;
 		tip = true;
+		/*
 		if (previousJoint != null)
 		{
 			startUnitDistance = Vector2.Distance(transform.position, previousJoint.transform.position);
-		}
+		}*/
 	}
 
 	private void Start()
 	{
 		//can't make this on Awake due to needing other codes to do stuff on start for this to work
-		previousJoint = gameObject.GetComponent<HingeJoint2D>().connectedBody;
+		/*
+		previousJoint = gameObject.GetComponent<SpringJoint2D>().connectedBody;
 		startUnitDistance = Vector2.Distance(transform.position, previousJoint.transform.position);
+		*/
 	}
 
 
@@ -48,11 +51,13 @@ public class ChainJointManager : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		/*
 		if (Vector2.Distance(transform.position, previousJoint.transform.position) > startUnitDistance)
 		{
 			rb2d.AddForce(previousJoint.transform.position - transform.position);
 
 		}
+		*/
 	}
 
 	private IEnumerator ShouldCreateJoint()

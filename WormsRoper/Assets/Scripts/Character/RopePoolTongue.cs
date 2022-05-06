@@ -18,23 +18,26 @@ public class RopePoolTongue : MonoBehaviour
 	{
 		line = GetComponent<LineRenderer>();
 		GameObject theJoint;
-		HingeJoint2D hinge;
+		SpringJoint2D hinge;
 		Rigidbody2D jointRB = null;
 		hand = transform.GetChild(0);
 		for (int i = 0; i < poolSize; i++)
 		{
 			theJoint = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
-			hinge = theJoint.GetComponent<HingeJoint2D>();
+			chainJointManagers.Add(theJoint.GetComponent<ChainJointManager>());
+			hinge = chainJointManagers[i].sj2d;// theJoint.GetComponent<SpringJoint2D>();
 			if (i == 0)
 			{
 				hinge.connectedBody = characterRB;
+				hinge.autoConfigureDistance = false;
+				hinge.distance = 0.005f;
 			}
 			else
 			{
 				hinge.connectedBody = jointRB;
 			}
-			chainJointManagers.Add(theJoint.GetComponent<ChainJointManager>());
-			jointRB = theJoint.GetComponent<Rigidbody2D>();
+
+			jointRB = chainJointManagers[i].rb2d;// theJoint.GetComponent<Rigidbody2D>();
 			theJoint.SetActive(false);
 			RopeJointsPool.Add(theJoint);
 		}
