@@ -63,8 +63,8 @@ public class ChainJointManager : MonoBehaviour
 	private IEnumerator ShouldCreateJoint()
 	{
 		yield return new WaitForSeconds(stats.shotSpeed);
-		if (!elongate.value) StartCoroutine(ShouldCreateJoint());
-		else if(RopePoolTongue.RopeJointsPool.Count > RopePoolTongue.RopeJoints)
+		if (!elongate.value) yield return StartCoroutine(ShouldCreateJoint());
+		if(RopePoolTongue.RopeJointsPool.Count > RopePoolTongue.RopeJoints)
 		{
 			GameObject nextJoint = RopePoolTongue.RopeJointsPool[RopePoolTongue.RopeJoints];
 			nextJoint.transform.position = transform.position + transform.forward * spriteRenderer.bounds.size.x * stats.distanceMultiplier;
@@ -73,6 +73,7 @@ public class ChainJointManager : MonoBehaviour
 			yield return new WaitForSeconds(stats.shotSpeed / 2);
 			tip = false;
 		}
+		yield return null;
 	}
 
 	private void DestroyNow()

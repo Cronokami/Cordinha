@@ -8,23 +8,14 @@ public class TouchPointManager : MonoBehaviour
 	public static Vector3 pointToShoot;
 	public static Vector3 pointToUnshoot;
 	public static bool isTouching;
-
-    void Start()
-    {
-        
-    }
-
-    
-    void Update()
-    {
-        
-    }
-
+	public static float timePressed;
+	private float timeAtTouch;
 
 	private void OnMouseDown()
 	{
 		pointToShoot = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		isTouching = true;
+		timeAtTouch = Time.time;
 	}
 
 
@@ -38,5 +29,6 @@ public class TouchPointManager : MonoBehaviour
 	{
 		if(Input.touchCount == 0)
 		isTouching = false;
+		timePressed = Time.time - timeAtTouch;
 	}
 }

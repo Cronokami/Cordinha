@@ -14,51 +14,24 @@ public class RopePoolTongue : MonoBehaviour
 	public Rigidbody2D characterRB;
 	public static Transform hand;
 
+	//Variáveis pra CreatJoints()
+	private GameObject theJoint;
+	private SpringJoint2D hinge;
+	private Rigidbody2D jointRB;
+
 	private void Awake()
 	{
 		line = GetComponent<LineRenderer>();
-		GameObject theJoint;
-		SpringJoint2D hinge;
-		Rigidbody2D jointRB = null;
 		hand = transform.GetChild(0);
-		for (int i = 0; i < poolSize; i++)
-		{
-			theJoint = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
-			chainJointManagers.Add(theJoint.GetComponent<ChainJointManager>());
-			hinge = chainJointManagers[i].sj2d;// theJoint.GetComponent<SpringJoint2D>();
-			if (i == 0)
-			{
-				hinge.connectedBody = characterRB;
-				hinge.autoConfigureDistance = false;
-				hinge.distance = 0.005f;
-			}
-			else
-			{
-				hinge.connectedBody = jointRB;
-			}
-
-			jointRB = chainJointManagers[i].rb2d;// theJoint.GetComponent<Rigidbody2D>();
-			theJoint.SetActive(false);
-			RopeJointsPool.Add(theJoint);
-		}
-		
+		jointRB = null;
+		CreateJoints();
 		RopeJoints = 0;
 	}
 
+
 	private void Update()
     {
-		if (RopeJoints > 0)
-		{
-			line.positionCount = RopeJoints;
-			for (int i = 0; i < RopeJoints; i++)
-			{
-				line.SetPosition(i, RopeJointsPool[i].transform.position);
-			}
-		}
-		else
-		{
-			line.positionCount = 0;
-		}
+		ShowLine();
     }
 
 	private void FixedUpdate()
@@ -70,6 +43,40 @@ public class RopePoolTongue : MonoBehaviour
 			totalDistance += Vector3.Distance(joint.transform.position, previousPosition);
 		}
 		
+	}
+
+	private void ShowLine()
+	{
+		if (RopeJoints <= 0)
+		{
+			line.positionCount = 0;
+			return;
+		}
+		line.positionCount = RopeJoints;
+		for (int i = 0; i < RopeJoints; i++)
+		{
+			line.SetPosition(i, RopeJointsPool[i].transform.position);
+		}
+	}
+
+	private void CreateJoints()//CriaBufas()
+	{
+		for (int i = 0; i < poolSize; i++)
+		{
+			theJoint = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
+			chainJointManagers.Add(theJoint.GetComponent<ChainJointManager>());
+			hinge = chainJointManagers[i].sj2d;
+			hinge.connectedBody = jointRB;
+			if (i == 0)
+			{
+				hinge.connectedBody = characterRB;
+				hinge.autoConfigureDistance = false;
+				hinge.distance = 0.005f;
+			}
+			jointRB = chainJointManagers[i].rb2d;
+			theJoint.SetActive(false);
+			RopeJointsPool.Add(theJoint);
+		}
 	}
 
 	public static void ClearJoints()

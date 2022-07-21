@@ -25,16 +25,16 @@ public class TongueTip : MonoBehaviour
 
     private void Update()
     {
+		
+		transform.up = followTransform.forward;
+		transform.position = followTransform.position;
 		if (elongate.value)
 		{
 			sprite.sprite = hand;
+			return;
 		}
-		else
-		{
-			sprite.sprite = fist;
-		}
-		transform.up = followTransform.forward;
-		transform.position = followTransform.position;
+		sprite.sprite = fist;
+		
 	}
 
 

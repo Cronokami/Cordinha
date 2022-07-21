@@ -27,27 +27,7 @@ public class ShootManager : MonoBehaviour
     {
 		if (TouchPointManager.isTouching && !CharacterTouchDrag.isDragging)
 		{
-			if (!constantTouch)
-			{
-				if (!shot)
-				{
-
-					shot = true;
-					transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
-					firstJoint.transform.position = transform.localPosition;
-					firstJoint.transform.rotation = transform.localRotation;
-					firstJoint.SetActive(true);
-					activate.value = true;
-				}
-				else
-				{
-					shot = false;
-					activate.value = false;
-					RopePoolTongue.ClearJoints();
-				}
-				constantTouch = true;
-			}
-			
+			ShootTongue();
 		}
 
 		if (!TouchPointManager.isTouching)
@@ -61,7 +41,26 @@ public class ShootManager : MonoBehaviour
 		}
 		
 	}
-	
+
+	private void ShootTongue()
+	{
+		if (constantTouch) return;
+		constantTouch = true;
+
+		if (shot)
+		{
+			shot = false;
+			activate.value = false;
+			RopePoolTongue.ClearJoints();
+			return;
+		}
+		shot = true;
+		transform.rotation = Quaternion.LookRotation(new Vector3(TouchPointManager.pointToShoot.x, TouchPointManager.pointToShoot.y, transform.position.z) - transform.position);
+		firstJoint.transform.position = transform.localPosition;
+		firstJoint.transform.rotation = transform.localRotation;
+		firstJoint.SetActive(true);
+		activate.value = true;
+	}
 
 	private void OnDisable()
 	{
