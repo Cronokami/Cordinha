@@ -11,6 +11,7 @@ public class ShootManager : MonoBehaviour
 	public GameObject ropePoolGameObject;
 	private Rigidbody2D rb2d;
 	GameObject firstJoint;
+	public FloatVariable TapThreshhold;
 
 	private bool constantTouch = false;
 	
@@ -27,7 +28,7 @@ public class ShootManager : MonoBehaviour
     {
 		if (TouchPointManager.isTouching && !CharacterTouchDrag.isDragging)
 		{
-			ShootTongue();
+			 ShootTongue();
 		}
 
 		if (!TouchPointManager.isTouching)

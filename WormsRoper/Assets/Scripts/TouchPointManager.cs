@@ -9,7 +9,14 @@ public class TouchPointManager : MonoBehaviour
 	public static Vector3 pointToUnshoot;
 	public static bool isTouching;
 	public static float timePressed;
-	private float timeAtTouch;
+	public static float timeAtTouch;
+
+	private void FixedUpdate()
+	{
+		if (!isTouching) return;
+		timePressed = Time.time - timeAtTouch;
+	}
+
 
 	private void OnMouseDown()
 	{

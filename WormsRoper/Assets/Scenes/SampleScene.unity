@@ -1137,6 +1137,7 @@ MonoBehaviour:
   activate: {fileID: 11400000, guid: 13793d8508146b24bb95cc54efdb14a7, type: 2}
   shot: 0
   ropePoolGameObject: {fileID: 1100649087}
+  TapThreshhold: {fileID: 11400000, guid: 9153caf91f7afde42ae0e37f4e1faaab, type: 2}
 --- !u!58 &672099838
 CircleCollider2D:
   m_ObjectHideFlags: 0
