@@ -26,16 +26,16 @@ public class ShootManager : MonoBehaviour
 	
     void Update()
     {
-		if (TouchPointManager.isTouching && !CharacterTouchDrag.isDragging)
+		if (TouchPointManager.DidItTap() /*&& TouchPointManager.isTouching */&& !CharacterTouchDrag.isDragging)
 		{
 			 ShootTongue();
 		}
-
+		
 		if (!TouchPointManager.isTouching)
 		{
 			constantTouch = false;			
 		}
-
+		
 		if (firstJoint.activeSelf)
 		{
 			transform.rotation = firstJoint.transform.rotation;

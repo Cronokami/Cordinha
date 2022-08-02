@@ -10,11 +10,25 @@ public class TouchPointManager : MonoBehaviour
 	public static bool isTouching;
 	public static float timePressed;
 	public static float timeAtTouch;
+	private static bool tapped;
+
+	public static FloatVariable tapTimeLimit;
+	public FloatVariable tapThreshold;
+	public static FloatVariable swipeTimeLimit;
+	public FloatVariable swipeThreshold;
+
+	private void Awake()
+	{
+		tapTimeLimit = tapThreshold;
+		swipeTimeLimit = swipeThreshold;
+		tapped = false;
+		timePressed = 9999;
+	}
 
 	private void FixedUpdate()
 	{
 		if (!isTouching) return;
-		timePressed = Time.time - timeAtTouch;
+		
 	}
 
 
@@ -22,7 +36,9 @@ public class TouchPointManager : MonoBehaviour
 	{
 		pointToShoot = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		isTouching = true;
+		tapped = false;
 		timeAtTouch = Time.time;
+		timePressed = 9999;
 	}
 
 
@@ -37,5 +53,18 @@ public class TouchPointManager : MonoBehaviour
 		if(Input.touchCount == 0)
 		isTouching = false;
 		timePressed = Time.time - timeAtTouch;
+	}
+
+	public static bool DidItTap()
+	{
+		if (tapped) return false;
+		if (timePressed >= tapTimeLimit.value) return false;
+		tapped = true;
+		return true;
+	}
+
+	public static bool DidItSwipe()
+	{
+		return false;  //só comecei aqui
 	}
 }
