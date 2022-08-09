@@ -12,20 +12,24 @@ public class ActiveMovementManager : MonoBehaviour
 
 	private void Start()
 	{
+		/*
 		jumpManager = GetComponent<JumpManager>();
 		shootManager = GetComponent<ShootManager>();
 		ChangeMode();
 		ChangeMode();
+		*/
 		transform.forward = Vector3.up;
 	}
 
 
 	private void Update()
 	{
+		/*
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			ChangeMode();
 		}
+		*/
 	}
 
 

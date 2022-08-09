@@ -23,22 +23,14 @@ public class JumpManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (rb2D.constraints == RigidbodyConstraints2D.None) return;
-		if (TouchPointManager.isTouching)
-		{	
-			if (!shot)
-			{
-				baseShotPoint = TouchPointManager.pointToShoot;
-				shot = true;
-			}
+		//if (rb2D.constraints == RigidbodyConstraints2D.None) return;
+		if (!TouchPointManager.isTouching && TouchPointManager.DidItSwipe())
+		{
+			baseShotPoint = TouchPointManager.pointToShoot;
 			endShotPoint = TouchPointManager.pointToUnshoot;
 			PlotTrajectory(transform.position, (endShotPoint - baseShotPoint) * 0.86f , 0.02f, 5f);
-		}
-		if (!TouchPointManager.isTouching && shot)
-		{
+		
 			if(!debugShowLineLonger) lineRenderer.positionCount = 0;
-			shot = false;
-			rb2D.constraints = RigidbodyConstraints2D.None;
 			rb2D.AddForce((endShotPoint - baseShotPoint) * jumpForce);
 		}
 	}
@@ -76,16 +68,4 @@ public class JumpManager : MonoBehaviour
 		return start + startVelocity * time + Physics.gravity * time * time * 0.5f;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		if (collision.collider.CompareTag("Wall") && this.isActiveAndEnabled)
-		{
-			rb2D.constraints = RigidbodyConstraints2D.FreezeAll;
-		}
-	}
-
-	private void OnDisable()
-	{
-		rb2D.constraints = RigidbodyConstraints2D.None;
-	}
 }
