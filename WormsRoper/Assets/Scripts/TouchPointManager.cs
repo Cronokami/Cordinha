@@ -13,14 +13,17 @@ public class TouchPointManager : MonoBehaviour
 	private static bool tapped;
 
 	public static FloatVariable tapTimeLimit;
-	public FloatVariable tapThreshold;
+	public FloatVariable tapTimeThreshold;
 	public static FloatVariable swipeDistanceLimit;
-	public FloatVariable swipeThreshold;
+	public FloatVariable swipeDistanceThreshold;
+	public static FloatVariable swipeTimeLimit;
+	public FloatVariable swipeTimeThreshold;
 
 	private void Awake()
 	{
-		tapTimeLimit = tapThreshold;
-		swipeDistanceLimit = swipeThreshold;
+		tapTimeLimit = tapTimeThreshold;
+		swipeDistanceLimit = swipeDistanceThreshold;
+		swipeTimeLimit = swipeTimeThreshold;
 		tapped = false;
 		timePressed = 9999;
 	}
@@ -67,6 +70,7 @@ public class TouchPointManager : MonoBehaviour
 	{
 		if (tapped) return false;
 		if (Vector2.Distance(pointToShoot, pointToUnshoot) <= swipeDistanceLimit.value) return false;
+		if (timePressed >= swipeTimeLimit.value) return false;
 		tapped = true;
 		return true;
 	}

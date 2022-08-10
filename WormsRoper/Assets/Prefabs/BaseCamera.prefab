@@ -227,5 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a54d0ced0661b14c88299f993c245b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tapThreshold: {fileID: 11400000, guid: 9153caf91f7afde42ae0e37f4e1faaab, type: 2}
-  swipeThreshold: {fileID: 11400000, guid: 333209804146df842b0ef39dded28678, type: 2}
+  tapTimeThreshold: {fileID: 11400000, guid: 9153caf91f7afde42ae0e37f4e1faaab, type: 2}
+  swipeDistanceThreshold: {fileID: 11400000, guid: c72c9a0cf6d177f45ab8244743b5d9bb, type: 2}
+  swipeTimeThreshold: {fileID: 11400000, guid: c72c9a0cf6d177f45ab8244743b5d9bb, type: 2}
