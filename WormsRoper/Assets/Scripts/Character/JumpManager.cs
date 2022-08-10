@@ -28,7 +28,7 @@ public class JumpManager : MonoBehaviour
 		{
 			baseShotPoint = TouchPointManager.pointToShoot;
 			endShotPoint = TouchPointManager.pointToUnshoot;
-			PlotTrajectory(transform.position, (endShotPoint - baseShotPoint) * 0.86f , 0.02f, 5f);
+			//PlotTrajectory(transform.position, (endShotPoint - baseShotPoint) * 0.86f , 0.02f, 5f);
 		
 			if(!debugShowLineLonger) lineRenderer.positionCount = 0;
 			rb2D.AddForce((endShotPoint - baseShotPoint) * jumpForce);
