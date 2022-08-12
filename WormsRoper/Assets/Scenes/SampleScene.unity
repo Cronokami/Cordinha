@@ -1447,8 +1447,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111581650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.4, y: 1.4, z: -9}
-  m_LocalScale: {x: 16.66286, y: 254.36914, z: 1}
+  m_LocalPosition: {x: 7.5, y: 1.4, z: -9}
+  m_LocalScale: {x: 30.446264, y: 254.36914, z: 1}
   m_Children: []
   m_Father: {fileID: 1372326220}
   m_RootOrder: 1
@@ -1729,8 +1729,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358514033}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.2, y: 1.4, z: -9}
-  m_LocalScale: {x: 16.66286, y: 254.36911, z: 1}
+  m_LocalPosition: {x: -7.528, y: 1.4, z: -9}
+  m_LocalScale: {x: 33.2658, y: 254.36911, z: 1}
   m_Children: []
   m_Father: {fileID: 1372326220}
   m_RootOrder: 0
@@ -1918,6 +1918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1382731897}
   - component: {fileID: 1382731896}
+  - component: {fileID: 1382731898}
   m_Layer: 0
   m_Name: Dolly Cam
   m_TagString: Untagged
@@ -1947,7 +1948,7 @@ MonoBehaviour:
   m_Follow: {fileID: 672099836}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 10
+    OrthographicSize: 12.49
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -1975,6 +1976,19 @@ Transform:
   m_Father: {fileID: 2080491950}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1382731898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382731895}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19576ff45e2c835458a28482e567b95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolutionBase: {x: 1080, y: 1920}
 --- !u!1 &1427166607
 GameObject:
   m_ObjectHideFlags: 3
@@ -3059,6 +3073,18 @@ PrefabInstance:
     - target: {fileID: 6609937357882330596, guid: 7f5281c4fb94d6b4ca0fcb663d5ea172, type: 3}
       propertyPath: m_Name
       value: BaseCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6609937357882330599, guid: 7f5281c4fb94d6b4ca0fcb663d5ea172, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6609937357882330599, guid: 7f5281c4fb94d6b4ca0fcb663d5ea172, type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6609937357882330599, guid: 7f5281c4fb94d6b4ca0fcb663d5ea172, type: 3}
+      propertyPath: orthographic size
+      value: 12.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f5281c4fb94d6b4ca0fcb663d5ea172, type: 3}

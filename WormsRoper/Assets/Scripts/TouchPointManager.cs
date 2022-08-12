@@ -53,7 +53,7 @@ public class TouchPointManager : MonoBehaviour
 
 	private void OnMouseUp()
 	{
-		if(Input.touchCount == 0)
+		//if(Input.touchCount == 0)
 		isTouching = false;
 		timePressed = Time.time - timeAtTouch;
 	}

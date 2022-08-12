@@ -30,7 +30,6 @@ public class PlatformSpawner : MonoBehaviour
 	private void CreatePlatform()
 	{
 		int newPlatformType = Random.Range(-1, 3);
-		Debug.Log(newPlatformType);
 		float platformPositionX;
 
 		if (newPlatformType < 2)
